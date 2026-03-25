@@ -1,23 +1,36 @@
-## Usage
+## Simple Python Dynamic Worker Demo
 
-You can run the Worker defined by your new project by executing `wrangler dev` in this
-directory. This will start up an HTTP server and will allow you to iterate on your
-Worker without having to restart `wrangler`.
+This repo now shows only the basics:
 
-### Types and autocomplete
+- a host Cloudflare Worker written in Python
+- a Dynamic Worker written in Python
+- the host forwards the incoming request to the Dynamic Worker
+- the Dynamic Worker returns a simple hello-world response
 
-This project also includes a pyproject.toml with some requirements which
-set up autocomplete and type hints for this Python Workers project.
+It mirrors the Dynamic Workers docs example, but written entirely in Python.
 
-To get these installed you'll need `uv`, which you can install by following
-https://docs.astral.sh/uv/getting-started/installation/.
+### Files
 
-Once `uv` is installed, you can run the following:
+- `src/entry.py` is the whole demo
+- the Dynamic Worker source is embedded as a Python string in `src/entry.py`
 
-```
+### Run locally
+
+```bash
 uv venv
 uv sync
+uv run pywrangler dev
 ```
 
-Then point your editor's Python plugin at the `.venv` directory. You should then have working
-autocomplete and type information in your editor.
+Then open:
+
+- `http://127.0.0.1:8787/`
+
+### How it works
+
+- `wrangler.jsonc` configures the `LOADER` binding with `worker_loaders`
+- `src/entry.py` defines the Dynamic Worker source as a Python string
+- `env.LOADER.load()` creates a one-off Dynamic Worker at request time
+- the host forwards the incoming request to the loaded worker via `request.js_object`
+- the child response is converted back with `python_from_rpc`
+- the Dynamic Worker returns `Hello from a dynamic Worker`

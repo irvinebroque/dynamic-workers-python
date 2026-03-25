@@ -6,13 +6,18 @@
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"name": "dynamic-workers-python",
 	"main": "src/entry.py",
-	"compatibility_date": "2026-03-17",
+	"compatibility_date": "2026-03-24",
 	"compatibility_flags": [
 		"python_workers"
 	],
 	"observability": {
 		"enabled": true
-	}
+	},
+	"worker_loaders": [
+		{
+			"binding": "LOADER"
+		}
+	],
 	/**
 	 * Smart Placement
 	 * https://developers.cloudflare.com/workers/configuration/smart-placement/#smart-placement
