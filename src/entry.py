@@ -5,7 +5,8 @@ from workers import Response, WorkerEntrypoint, python_from_rpc
 DYNAMIC_WORKER_FILE = "dynamic_hello.py"
 DYNAMIC_WORKER_COMPATIBILITY_DATE = "2026-03-24"
 DYNAMIC_WORKER_COMPATIBILITY_FLAGS = [
-    "python_workers"
+    "python_workers",
+    "disable_python_dedicated_snapshot"
 ]
 DYNAMIC_WORKER_SOURCE = """
 from workers import Response, WorkerEntrypoint
